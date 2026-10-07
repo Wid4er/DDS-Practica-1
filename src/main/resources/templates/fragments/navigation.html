@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="menu" class="navbar navbar-light bg-light rounded px-3 my-3">
+    <a class="navbar-brand" th:href="@{/}">Inicio</a>
+    <div class="d-flex flex-wrap align-items-center gap-2">
+        <a class="btn btn-outline-primary" th:href="@{/products}">Catálogo</a>
+        <a class="btn btn-outline-secondary" th:href="@{/cart}">Carrito</a>
+        <a class="btn btn-outline-warning" th:href="@{/admin}"
+           sec:authorize="hasRole('ADMIN')">Administración</a>
+        <a class="btn btn-primary" th:href="@{/login}"
+           sec:authorize="isAnonymous()">Iniciar sesión</a>
+        <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+        <form th:action="@{/logout}" method="post" class="m-0"
+              sec:authorize="isAuthenticated()">
+            <button class="btn btn-outline-danger" type="submit">Cerrar sesión</button>
+        </form>
+    </div>
+</nav>
+</body>
+</html>

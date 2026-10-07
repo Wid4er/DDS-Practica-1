@@ -1,175 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Carrito de la compra</title>
-
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            background-color: #f2f2f2;
-            color: #222;
-        }
-
-        header {
-            background-color: #003366;
-            color: white;
-            padding: 18px 40px;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        main {
-            max-width: 950px;
-            margin: 30px auto;
-            background-color: white;
-            padding: 25px;
-            border: 1px solid #ccc;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th {
-            background-color: #e4e8ec;
-            text-align: left;
-        }
-
-        th, td {
-            border: 1px solid #aaa;
-            padding: 10px;
-        }
-
-        input {
-            width: 55px;
-            padding: 5px;
-            border: 1px solid #999;
-        }
-
-        button {
-            padding: 6px 10px;
-            border: 1px solid #777;
-            background-color: #e5e5e5;
-            cursor: pointer;
-        }
-
-        a {
-            color: #004b87;
-        }
-
-        .eliminar {
-            color: #a00000;
-        }
-
-        .boton {
-            display: inline-block;
-            padding: 8px 14px;
-            background-color: #e5e5e5;
-            border: 1px solid #777;
-            color: #222;
-            text-decoration: none;
-        }
-
-        .total {
-            text-align: right;
-            font-size: 18px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carrito de Compras</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
-
-<header>
-    <h1>Carrito de la compra</h1>
-</header>
-
-<main>
-
-    <h2>Productos seleccionados</h2>
-
-    <table th:if="${!#lists.isEmpty(cartItems)}">
-
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            <tr th:each="item : ${cartItems}">
-
-                <td th:text="${item.product.name}"></td>
-
-                <td>
-                    <span th:text="${item.product.price}"></span> €
-                </td>
-
-                <td>
-
-                    <form th:action="@{/cart/update/{id}(id=${item.product.id})}"
-                          method="get">
-
-                        <input type="number"
-                               name="quantity"
-                               min="1"
-                               th:value="${item.quantity}">
-
-                        <button type="submit">
-                            Actualizar
-                        </button>
-
+    <div class="container">
+        <nav th:replace="~{fragments/navigation :: menu}"></nav>
+        <h1 class="text-center my-5">Carrito de Compras</h1>
+        <div class="mb-4">
+            <a th:href="@{/products}" class="btn btn-secondary">Continuar Comprando</a>
+        </div>
+        <div>
+            <p th:if="${#lists.isEmpty(cartItems)}" class="alert alert-info">El carrito está vacío.</p>
+            <ul class="list-group">
+                <li th:each="item : ${cartItems}" class="list-group-item d-flex flex-wrap gap-3 justify-content-between align-items-center">
+                    <div>
+                        <strong th:text="${item.product.name}">Nombre del Producto</strong>
+                        <div th:text="${#numbers.formatDecimal(item.product.price, 1, 2)} + ' € por unidad'">Precio</div>
+                    </div>
+                    <form th:action="@{/cart/update/{id}(id=${item.product.id})}" method="post" class="d-flex align-items-center gap-2">
+                        <label th:for="${'quantity-' + item.product.id}">Cantidad</label>
+                        <input th:id="${'quantity-' + item.product.id}" type="number" name="quantity"
+                               th:value="${item.quantity}" min="1" step="1" required class="form-control" style="width: 85px;">
+                        <button type="submit" class="btn btn-outline-primary">Actualizar</button>
                     </form>
-
-                </td>
-
-                <td>
-                    <span th:text="${item.subtotal}"></span> €
-                </td>
-
-                <td>
-                    <a class="eliminar"
-                       th:href="@{/cart/remove/{id}(id=${item.product.id})}">
-                        Eliminar
-                    </a>
-                </td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
-
-    <p th:if="${#lists.isEmpty(cartItems)}">
-        El carrito está vacío.
-    </p>
-
-    <div class="total"
-         th:if="${!#lists.isEmpty(cartItems)}">
-
-        Total:
-        <span th:text="${total}"></span> €
-
+                    <span th:text="'Subtotal: ' + ${#numbers.formatDecimal(item.subtotal, 1, 2)} + ' €'">Subtotal</span>
+                    <form th:action="@{/cart/remove/{id}(id=${item.product.id})}" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </li>
+            </ul>
+            <p th:if="${!#lists.isEmpty(cartItems)}" class="text-end fw-bold mt-3"
+               th:text="'Total: ' + ${#numbers.formatDecimal(total, 1, 2)} + ' €'">Total</p>
+        </div>
     </div>
-
-    <a class="boton" th:href="@{/products}">
-        Seguir comprando
-    </a>
-
-</main>
-
 </body>
 </html>

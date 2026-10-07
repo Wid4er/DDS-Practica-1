@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ejemplo.practica1.model.Product;
 import com.ejemplo.practica1.service.ProductService;
@@ -23,16 +24,14 @@ public class ProductController {
     @GetMapping
     public String listProducts(Model model) {
         model.addAttribute("products", productService.getAllProducts());
-        model.addAttribute("product", new Product());
-
-        return "productos";
+        return "products";
     }
 
     @PostMapping("/add")
     public String addProduct(Product product) {
         productService.saveProduct(product);
 
-        return "redirect:/products";
+        return "redirect:/admin";
     }
     
     @GetMapping("/new")
@@ -42,7 +41,7 @@ public class ProductController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editProduct(@PathVariable Long id, Model model) {
+    public String editProduct(@PathVariable("id") Long id, Model model) {
         Product product = productService
                 .getProductById(id)
                 .orElseThrow();
@@ -53,22 +52,23 @@ public class ProductController {
     }
     
     @GetMapping("/search")
-    public String searchProducts(String name, Model model) {
+    public String searchProducts(@RequestParam(name = "name", defaultValue = "") String name, Model model) {
         model.addAttribute("products", productService.searchProducts(name));
-        return "productos";
+        model.addAttribute("searchName", name);
+        return "products";
     }
 
     @PostMapping("/edit")
     public String updateProduct(Product product) {
         productService.saveProduct(product);
 
-        return "redirect:/products";
+        return "redirect:/admin";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable Long id) {
+    @PostMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProduct(id);
 
-        return "redirect:/products";
+        return "redirect:/admin";
     }
 }
