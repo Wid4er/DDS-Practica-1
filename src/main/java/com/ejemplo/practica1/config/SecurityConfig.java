@@ -24,9 +24,10 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorize -> authorize
 
-                .requestMatchers("/", "/index", "/cart/**").permitAll()
+                .requestMatchers("/", "/index", "/cart/**", "/h2-console/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/products", "/products/search").permitAll()
-                .requestMatchers("/admin/**", "/products", "/products/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**", "/products", "/products/**")
+                    .hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
 
@@ -40,6 +41,14 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
+            )
+
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/h2-console/**")
+            )
+
+            .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin())
             );
 
         return http.build();
