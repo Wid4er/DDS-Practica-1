@@ -12,5 +12,5 @@
 
 - Los ficheros html y parte del código fué heredado de la carpeta fundamental.
 
-- @AutoWired aplicado, sin embargo, Spring Tools advierte que no es necesario.
+- @AutoWired aplicado en los objetos, sin embargo, Spring Tools advierte que no es necesario.
 
