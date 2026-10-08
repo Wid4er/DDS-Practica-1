@@ -10,18 +10,21 @@
     <div class="container">
         <nav th:replace="~{fragments/navigation :: menu}"></nav>
         <h1 class="text-center my-5">Catálogo de Productos</h1>
-        <form th:action="@{/products/search}" method="get" class="row g-2 mb-4">
+        <form th:action="@{/products/search}" method="get" role="search" class="row g-2 align-items-end mb-4">
             <div class="col-sm">
-                <label for="search-name" class="visually-hidden">Nombre del producto</label>
-                <input id="search-name" name="name" class="form-control"
-                       placeholder="Buscar por nombre" th:value="${searchName}">
+                <label for="search-name" class="form-label">Buscar productos</label>
+                <input id="search-name" type="search" name="name" class="form-control"
+                       placeholder="Nombre del producto" th:value="${searchName}">
             </div>
             <div class="col-sm-auto">
                 <button type="submit" class="btn btn-primary">Buscar</button>
                 <a th:href="@{/products}" class="btn btn-secondary">Mostrar todos</a>
             </div>
         </form>
-        <p th:if="${#lists.isEmpty(products)}" class="alert alert-info">No hay productos disponibles.</p>
+        <p th:if="${#lists.isEmpty(products)}" class="alert alert-info"
+           th:text="${#strings.isEmpty(searchName) ? 'No hay productos disponibles.' : 'No se encontraron productos con ese nombre.'}">
+            No hay productos disponibles.
+        </p>
         <div class="row">
             <div th:each="product : ${products}" class="col-md-4">
                 <div class="card mb-4">

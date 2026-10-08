@@ -55,8 +55,9 @@ public class ProductController {
     
     @GetMapping("/search")
     public String searchProducts(@RequestParam(name = "name", defaultValue = "") String name, Model model) {
-        model.addAttribute("products", productService.searchProducts(name));
-        model.addAttribute("searchName", name);
+        String searchName = name.trim();
+        model.addAttribute("products", productService.searchProducts(searchName));
+        model.addAttribute("searchName", searchName);
         return "products";
     }
 
