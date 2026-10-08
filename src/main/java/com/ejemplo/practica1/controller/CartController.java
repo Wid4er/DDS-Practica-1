@@ -1,5 +1,8 @@
 package com.ejemplo.practica1.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ejemplo.practica1.model.Product;
+import com.ejemplo.practica1.model.CartItem;
 import com.ejemplo.practica1.service.CartService;
 import com.ejemplo.practica1.service.ProductService;
 
@@ -19,6 +23,7 @@ public class CartController {
     private final CartService cartService;
     private final ProductService productService;
 
+    @Autowired
     public CartController(
             CartService cartService,
             ProductService productService) {
@@ -30,8 +35,9 @@ public class CartController {
     @GetMapping
     public String viewCart(Model model) {
 
-        model.addAttribute("cartItems", cartService.getCartItems());
-        model.addAttribute("total", cartService.getTotal());
+        List<CartItem> items = cartService.getCartItems();
+        model.addAttribute("cartItems", items);
+        model.addAttribute("total", items.stream().mapToDouble(CartItem::getSubtotal).sum());
 
         return "cart";
     }

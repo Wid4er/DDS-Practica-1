@@ -42,4 +42,22 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Product)) {
+            return false;
+        }
+        Product product = (Product) other;
+        return getId() != null && getId().equals(product.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        // Permanece estable cuando JPA asigna el identificador al guardar.
+        return Product.class.hashCode();
+    }
 }

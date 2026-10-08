@@ -1,5 +1,6 @@
 package com.ejemplo.practica1.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class AdminController {
     private final DatabaseExportService databaseExportService;
     private final ProductService productService;
 
+    @Autowired
     public AdminController(DatabaseExportService databaseExportService, ProductService productService) {
         this.databaseExportService = databaseExportService;
         this.productService = productService;

@@ -4,6 +4,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Base de datos local H2 ###
+/data/
+*.mv.db
+*.trace.db
+*.lock.db
+
 ### STS ###
 .apt_generated
 .classpath

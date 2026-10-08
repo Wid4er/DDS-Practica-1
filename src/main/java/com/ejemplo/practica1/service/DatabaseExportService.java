@@ -3,6 +3,7 @@ package com.ejemplo.practica1.service;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ejemplo.practica1.model.Product;
@@ -13,6 +14,7 @@ public class DatabaseExportService {
 
     private final ProductRepo productRepo;
 
+    @Autowired
     public DatabaseExportService(ProductRepo productRepo) {
         this.productRepo = productRepo;
     }
