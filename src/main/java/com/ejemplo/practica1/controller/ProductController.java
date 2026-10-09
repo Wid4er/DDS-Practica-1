@@ -16,12 +16,12 @@ import com.ejemplo.practica1.service.ProductService;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService productService;
+	@Autowired
+    private ProductService productService;
 
-    @Autowired
-    public ProductController(ProductService productService) {
+    /*public ProductController(ProductService productService) {
         this.productService = productService;
-    }
+    }*/
 
     @GetMapping
     public String listProducts(Model model) {

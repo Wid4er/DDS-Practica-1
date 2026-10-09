@@ -16,10 +16,11 @@ import com.ejemplo.practica1.service.ProductService;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final DatabaseExportService databaseExportService;
-    private final ProductService productService;
+	@Autowired
+    private DatabaseExportService databaseExportService;
+	@Autowired
+    private ProductService productService;
 
-    @Autowired
     public AdminController(DatabaseExportService databaseExportService, ProductService productService) {
         this.databaseExportService = databaseExportService;
         this.productService = productService;

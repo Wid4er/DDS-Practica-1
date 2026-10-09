@@ -25,13 +25,15 @@ public class CartService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final ProductRepo productRepo;
+    @Autowired
+    private ProductRepo productRepo;
     private final List<CartItem> cart = new ArrayList<>();
 
-    @Autowired
+
+    /*
     public CartService(ProductRepo productRepo) {
         this.productRepo = productRepo;
-    }
+    }*/
 
     @Transactional
     public void addProduct(Product product, int quantity) {

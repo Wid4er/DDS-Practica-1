@@ -19,12 +19,13 @@ public class ProductService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final ProductRepo productRepo;
-
     @Autowired
+    private ProductRepo productRepo;
+
+    /*
     public ProductService(ProductRepo productRepo) {
         this.productRepo = productRepo;
-    }
+    }*/
 
     public List<Product> getAllProducts() {
         return productRepo.findAll();

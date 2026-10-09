@@ -20,17 +20,18 @@ import com.ejemplo.practica1.service.ProductService;
 @RequestMapping("/cart")
 public class CartController {
 
-    private final CartService cartService;
-    private final ProductService productService;
+	@Autowired
+    private CartService cartService;
+	@Autowired
+    private ProductService productService;
 
-    @Autowired
-    public CartController(
+   /* public CartController(
             CartService cartService,
             ProductService productService) {
 
         this.cartService = cartService;
         this.productService = productService;
-    }
+    } */
 
     @GetMapping
     public String viewCart(Model model) {

@@ -12,12 +12,14 @@ import com.ejemplo.practica1.repository.ProductRepo;
 @Service
 public class DatabaseExportService {
 
-    private final ProductRepo productRepo;
+	@Autowired
+    private ProductRepo productRepo;
 
-    @Autowired
+
+	/*
     public DatabaseExportService(ProductRepo productRepo) {
         this.productRepo = productRepo;
-    }
+    }*/
 
     public byte[] exportDatabaseToSql() {
 
