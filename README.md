@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 Arranque: Con Java 17+ y Spring Tools Version: 5.4.0.RELEASE con Practica1Appliacation.java
 
 Cuentas: admin/admin gestiona productos y exporta SQL; user/user y anónimo consulta el catálogo y utiliza su carrito.
@@ -11,7 +11,6 @@ Se realizó un buscador de productos vía findByNameContainingIgnoreCase.
 
 Los ficheros html y parte del código fué heredado de la carpeta fundamental.
 
-@AutoWired aplicado en los objetos, sin embargo, Spring Tools advierte que no es necesario.
 =======
 # Práctica 1
 
