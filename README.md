@@ -14,4 +14,3 @@
 
 - @AutoWired aplicado en los objetos, sin embargo, Spring Tools advierte que no es necesario.
 
->>>>>>> 708087c062e151003eb60bdae4dbdef35d650dad
