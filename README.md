@@ -12,6 +12,5 @@
 
 - Los ficheros html y parte del código fué heredado de la carpeta fundamental.
 
-- Los cambios del catalogo se ven reflejados en el carrito tras F5
+- @AutoWired aplicado en los objetos, sin embargo, Spring Tools advierte que no es necesario.
 
-- Enlace al github: https://github.com/Wid4er/DDS-Practica-1
